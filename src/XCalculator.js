@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 export default function XCalculator() {
-const [inputValue, setInputValue] = useState(0);    
-const [inputResult, setInputResult] = useState(0);
+const [inputValue, setInputValue] = useState("");    
+const [inputResult, setInputResult] = useState("");
  const buttonStyle = {
   height:"70px",
   borderRadius:"10px",
@@ -25,7 +25,8 @@ if(inputValue.trim() === ""){
 }
 
 try{
-    const ResultEval = eval(inputValue);
+    //const ResultEval = eval(inputValue);
+    const ResultEval = Function(`"use strict"; return (${inputValue})`)();
     setInputResult(String(ResultEval));
 }catch {
     setInputResult("Error")
