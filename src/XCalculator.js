@@ -25,8 +25,6 @@ if(inputValue.trim() === ""){
 }
 
 try{
-    //const ResultEval = eval(inputValue);
-    //const ResultEval = Function(`"use strict"; return (${inputValue})`)();
     const ResultEval = evalInputValue(inputValue);
     setInputResult(String(ResultEval));
 }catch {
@@ -39,34 +37,26 @@ try{
       <h1 style={{textAlign:"center", bottom:"10px"}}>React Calculator</h1>
       <div style={{maxWidth:"300px", margin:"0 auto", padding:"20px", border:"1px solid #ccc", borderRadius:"10px"}}>     
         <input type="text" value={inputValue} style={{width:"80%", height:"20px", fontSize:"24px", textAlign:"center"}} readOnly />
-        {/* <div style={{display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:"10px", marginTop:"10px"}}>
-          {["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "0", ".", "=", "/"].map((btn) => (
-            <button key={btn} style={{height:"70px", borderRadius:"10px", fontSize:"24px"}} onClick={()=> setInputValue(btn)}>{btn}</button>
-          ))} */}
 
           <div style={{textAlign:"center"}}>
             {inputResult}
           </div>
         <div style={{display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:"10px", marginTop:"10px"}}>
-            <button style={buttonStyle} onClick={() => handleClick("7")}>7</button>
-            <button style={buttonStyle} onClick={() => handleClick("8")}>8</button>
-            <button style={buttonStyle} onClick={() => handleClick("9")}>9</button>
-            <button style={buttonStyle} onClick={() => handleClick("+")}>+</button>
-
-            <button style={buttonStyle} onClick={() => handleClick("4")}>4</button>
-            <button style={buttonStyle} onClick={() => handleClick("5")}>5</button>
-            <button style={buttonStyle} onClick={() => handleClick("6")}>6</button>
-            <button style={buttonStyle} onClick={() => handleClick("-")}>-</button>
-
-            <button style={buttonStyle} onClick={()=> handleClick("1")}>1</button>
-            <button style={buttonStyle} onClick={()=> handleClick("2")}>2</button>
-            <button style={buttonStyle} onClick={()=> handleClick("3")}>3</button>
-            <button style={buttonStyle} onClick={()=> handleClick("*")}>*</button>
-
-            <button style={buttonStyle}onClick={Clear_all}>C</button>
-            <button style={buttonStyle} onClick={()=> handleClick("0")}>0</button>
-            <button style={buttonStyle} onClick={Calculate_Result}>=</button>
-            <button style={buttonStyle} onClick={()=> handleClick("/")}>/</button>
+           
+            {["7","8","9","+","4","5","6","-","1","2","3","*","C","0","=","/"].map((btn) => (
+        <button style={buttonStyle} 
+          key={btn}
+          onClick={() =>
+            btn === "C"
+              ? Clear_all()
+              : btn === "="
+              ? Calculate_Result()
+              : handleClick(btn)
+          }
+        >
+          {btn}
+        </button>
+      ))}
     </div>
     </div>
     </div>
@@ -116,3 +106,33 @@ function evalInputValue(expr) {
   while (ops.length) applyOp();
   return num_bers[0];
 }
+
+ {/*
+    try{
+    //const ResultEval = eval(inputValue);
+    //const ResultEval = Function(`"use strict"; return (${inputValue})`)();
+    const ResultEval = evalInputValue(inputValue);
+    
+    <button style={buttonStyle} onClick={() => handleClick("7")}>7</button>
+            <button style={buttonStyle} onClick={() => handleClick("8")}>8</button>
+            <button style={buttonStyle} onClick={() => handleClick("9")}>9</button>
+            <button style={buttonStyle} onClick={() => handleClick("+")}>+</button>
+
+            <button style={buttonStyle} onClick={() => handleClick("4")}>4</button>
+            <button style={buttonStyle} onClick={() => handleClick("5")}>5</button>
+            <button style={buttonStyle} onClick={() => handleClick("6")}>6</button>
+            <button style={buttonStyle} onClick={() => handleClick("-")}>-</button>
+
+            <button style={buttonStyle} onClick={()=> handleClick("1")}>1</button>
+            <button style={buttonStyle} onClick={()=> handleClick("2")}>2</button>
+            <button style={buttonStyle} onClick={()=> handleClick("3")}>3</button>
+            <button style={buttonStyle} onClick={()=> handleClick("*")}>*</button>
+
+            <button style={buttonStyle}onClick={Clear_all}>C</button>
+            <button style={buttonStyle} onClick={()=> handleClick("0")}>0</button>
+            <button style={buttonStyle} onClick={Calculate_Result}>=</button>
+            <button style={buttonStyle} onClick={()=> handleClick("/")}>/</button> */}
+             {/* <div style={{display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:"10px", marginTop:"10px"}}>
+          {["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "0", ".", "=", "/"].map((btn) => (
+            <button key={btn} style={{height:"70px", borderRadius:"10px", fontSize:"24px"}} onClick={()=> setInputValue(btn)}>{btn}</button>
+          ))} */}
