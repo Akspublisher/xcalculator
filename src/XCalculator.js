@@ -26,7 +26,8 @@ if(inputValue.trim() === ""){
 
 try{
     //const ResultEval = eval(inputValue);
-    const ResultEval = Function(`"use strict"; return (${inputValue})`)();
+    //const ResultEval = Function(`"use strict"; return (${inputValue})`)();
+    const ResultEval = evalInputValue(inputValue);
     setInputResult(String(ResultEval));
 }catch {
     setInputResult("Error")
@@ -70,4 +71,48 @@ try{
     </div>
     </div>
   );
+}
+
+function evalInputValue(expr) {
+  const num_bers = [];
+  const ops = [];
+
+  const precedence = (op) => (op === "+" || op === "-" ? 1 : 2);
+
+  const applyOp = () => {
+    const b = num_bers.pop();
+    const a = num_bers.pop();
+    const op = ops.pop();
+
+    switch (op) {
+      case "+": num_bers.push(a + b); break;
+      case "-": num_bers.push(a - b); break;
+      case "*": num_bers.push(a * b); break;
+      case "/": num_bers.push(a / b); break;
+      default: break;
+    }
+  };
+
+  let i = 0;
+  while (i < expr.length) {
+    if (!isNaN(expr[i])) {
+      let num = "";
+      while (i < expr.length && !isNaN(expr[i])) {
+        num += expr[i++];
+      }
+      num_bers.push(Number(num));
+    } else {
+      while (
+        ops.length &&
+        precedence(ops[ops.length - 1]) >= precedence(expr[i])
+      ) {
+        applyOp();
+      }
+      ops.push(expr[i]);
+      i++;
+    }
+  }
+
+  while (ops.length) applyOp();
+  return num_bers[0];
 }
