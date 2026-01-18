@@ -19,10 +19,10 @@ const Clear_all = ()=> {
 }
 
 const Calculate_Result = () => {
-if(inputValue.trim() === ""){{
+if(inputValue.trim() === ""){
     setInputResult("Error");
     return;
-}}
+}
 
 try{
     const ResultEval = eval(inputValue);
